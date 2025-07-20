@@ -22,14 +22,8 @@ app.post('/chat', async (req, res) => {
     const response = await openai.createChatCompletion({
       model: 'gpt-4',
       messages: [
-        {
-          role: 'system',
-          content: 'You are a kind and helpful CBT coach.',
-        },
-        {
-          role: 'user',
-          content: message,
-        },
+        { role: 'system', content: 'You are a helpful CBT coach.' },
+        { role: 'user', content: message },
       ],
     });
 
