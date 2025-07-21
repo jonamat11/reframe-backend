@@ -23,27 +23,24 @@ app.post('/chat', async (req, res) => {
       {
         role: "system",
         content:
-          "You are a warm and supportive CBT coach. Help the user reflect on their thoughts. Use Socratic questioning. Prompt them to explore cognitive distortions and reframe unhelpful beliefs.",
+          "You are a warm and supportive CBT coach. Help the user reflect on their thoughts. Use Socratic questioning. Prompt them to explore cognitive distortions and reframe unhelpful beliefs."
       },
-      {
-        role: "user",
-        content: message,
-      },
+      { role: "user", content: message }
     ];
 
     const response = await openai.createChatCompletion({
       model: 'gpt-4',
-      messages,
+      messages: messages,
     });
 
     res.json({ reply: response.data.choices[0].message.content });
   } catch (err) {
-    console.error('❌ GPT Error:', err.message);
+    console.error('GPT Error:', err.response?.data || err.message);
     res.status(500).json({ error: 'Something went wrong with GPT' });
   }
 });
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
